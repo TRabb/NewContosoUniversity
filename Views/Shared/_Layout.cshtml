@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Contoso University</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <style>
+        body {
+            padding-top: 0px;
+        }
+
+        .navbar a:link {
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar a:visited {
+            color: silver;
+        }
+
+        .navbar a:hover {
+            color: lemonchiffon;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <a class="navbar-brand" href="#">Contoso University</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item nav-link">
+                        @Html.ActionLink("Home", "Index", "Home")
+                    </li>
+                    <li class="nav-item nav-link">
+                        @Html.ActionLink("About", "About", "Home")
+                    </li>
+                    <li class="nav-item nav-link">
+                        @Html.ActionLink("Contact", "Contact", "Home")
+                    </li>
+                    <li class="nav-item nav-link">
+                        @Html.ActionLink("Students", "Index", "Student")
+                    </li>
+                    <li class="nav-item nav-link">
+                        @Html.ActionLink("Student Display", "Display", "Student")
+                    </li>
+                    <li class="nav-item nav-link">
+                        @Html.ActionLink("Courses", "Index", "Course")
+                    </li>
+                    <li class="nav-item nav-link">
+                        @Html.ActionLink("Enrollment", "Index", "Enrollment")
+                    </li>
+                    <li class="nav-item nav-link">
+                        @Html.ActionLink("Enrollment Statistics", "EnrollmentStats", "Home")
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item nav-link"><a href="#"><i class="fas fa-registered"></i>Register</a></li>
+                    <li class="nav-item nav-link"><a href="#"><i class="fas fa-sign-in-alt"></i>Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
