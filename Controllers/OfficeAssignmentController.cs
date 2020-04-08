@@ -11,112 +11,112 @@ using ContosoUniversity.Models;
 
 namespace ContosoUniversity.Controllers
 {
-    public class CourseController : Controller
+    public class OfficeAssignmentController : Controller
     {
         private SchoolContext db = new SchoolContext();
 
-        // GET: Course
+        // GET: OfficeAssignment
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Department);
-            return View(courses.ToList());
+            var officeAssignments = db.OfficeAssignments.Include(o => o.Instructor);
+            return View(officeAssignments.ToList());
         }
 
-        // GET: Course/Details/5
+        // GET: OfficeAssignment/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            OfficeAssignment officeAssignment = db.OfficeAssignments.Find(id);
+            if (officeAssignment == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(officeAssignment);
         }
 
-        // GET: Course/Create
+        // GET: OfficeAssignment/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "LastName");
             return View();
         }
 
-        // POST: Course/Create
+        // POST: OfficeAssignment/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseID,Title,Credits,DepartmentID")] Course course)
+        public ActionResult Create([Bind(Include = "InstructorID,Location")] OfficeAssignment officeAssignment)
         {
             if (ModelState.IsValid)
             {
-                db.Courses.Add(course);
+                db.OfficeAssignments.Add(officeAssignment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
-            return View(course);
+            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "LastName", officeAssignment.InstructorID);
+            return View(officeAssignment);
         }
 
-        // GET: Course/Edit/5
+        // GET: OfficeAssignment/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            OfficeAssignment officeAssignment = db.OfficeAssignments.Find(id);
+            if (officeAssignment == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
-            return View(course);
+            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "LastName", officeAssignment.InstructorID);
+            return View(officeAssignment);
         }
 
-        // POST: Course/Edit/5
+        // POST: OfficeAssignment/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseID,Title,Credits,DepartmentID")] Course course)
+        public ActionResult Edit([Bind(Include = "InstructorID,Location")] OfficeAssignment officeAssignment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
+                db.Entry(officeAssignment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
-            return View(course);
+            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "LastName", officeAssignment.InstructorID);
+            return View(officeAssignment);
         }
 
-        // GET: Course/Delete/5
+        // GET: OfficeAssignment/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            OfficeAssignment officeAssignment = db.OfficeAssignments.Find(id);
+            if (officeAssignment == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(officeAssignment);
         }
 
-        // POST: Course/Delete/5
+        // POST: OfficeAssignment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Courses.Find(id);
-            db.Courses.Remove(course);
+            OfficeAssignment officeAssignment = db.OfficeAssignments.Find(id);
+            db.OfficeAssignments.Remove(officeAssignment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

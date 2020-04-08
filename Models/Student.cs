@@ -5,27 +5,32 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ContosoUniversity.Models
 {
-    [Table("StudentInfo")]
     public class Student
     {
-        [Key]
         public int ID { get; set; }
-        [Required(ErrorMessage = "Please enter the student's last name.")]
-        [StringLength(30, ErrorMessage = "The last name must be less than {1} characters")]
+        [Required]
+        [StringLength(50)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
-        [StringLength(20, ErrorMessage = "The first name must be less than {1} characters")]
+        [Required]
+        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
         [Column("FirstName")]
         [Display(Name = "First Name")]
         public string FirstMidName { get; set; }
-
-        [RegularExpression(@"^(\+\s?)?((?<!\+.*)\(\+?\d+([\s\-\.]?\d+)?\)|\d+)([\s\-\.]?(\(\d+([\s\-\.]?\d+)?\)|\d+))*(\s?(x|ext\.?)\s?\d+)?$", ErrorMessage = "The Phone field is not a valid phone number")]
-        public string Phone { get; set; }
-
-        [Column("DateEnrolled")]
-        [Display(Name = "Date Enrolled")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Enrollment Date")]
         public DateTime EnrollmentDate { get; set; }
+
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return LastName + ", " + FirstMidName;
+            }
+        }
+
         public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 }
